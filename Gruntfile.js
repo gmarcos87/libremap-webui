@@ -169,7 +169,7 @@ module.exports = function(grunt) {
         dest: 'build/js/libremap.js',
         src: [ 'src/js/libremap.js' ],
         options: {
-          debug: grunt.option('debug'),
+          debug: true,
           external: [
             'jquery',
             'bootstrap',

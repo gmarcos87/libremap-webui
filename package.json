@@ -30,6 +30,7 @@
     "couchmap-backbone": "git://github.com/gmarcos87/couchmap-backbone#master",
     "couchmap-common": "git://github.com/gmarcos87/couchmap-common#master",
     "couchmap-leaflet": "git://github.com/gmarcos87/couchmap-leaflet#master",
+    "leaflet-bing-layer": "^3.1.0",
     "libremap-common": "git://github.com/gmarcos87/libremap-common#master",
     "underscore": "^1.8.3"
   },
