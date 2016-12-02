@@ -1,6 +1,6 @@
 var Backbone = require('backbone');
 var _ = require('underscore');
-var BackboneDeepModel = require('backbone-deep-model');
+Backbone.DeepModel = require('@kahwee/backbone-deep-model');
 
 var ParseModel = Backbone.Model.extend({
   parseSubColl: function(data, attribute, Collection, Model) {
