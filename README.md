@@ -21,11 +21,10 @@ There's a presentation ([slides](http://libre-mesh.github.io/libremap-talk-2013-
 You need the following:
 * [node.js](http://nodejs.org/) (>= 0.8.0) and its great package manager `npm`.
 * [Grunt](http://gruntjs.com/) - can be installed by running: ```npm install -g grunt-cli```
-* [Bower](http://bower.io/) - can be installed by running ```npm install -g bower```
 
 ### Installation
 1. Clone the repo: ```git clone git@github.com:libremap/libremap-webui.git``` and change to the repo dir: ```cd libremap-webui```.
-2. Download dependencies: ```npm install``` and ```bower install```.
+2. Download dependencies: ```npm install```.
 3. Copy `config.json.example` to `config.json` and configure your LibreMap API URL there. If you don't have your own [LibreMap API](https://github.com/libremap/libremap-api) you can use an existing one, for example ```http://libremap.net/api```.
 4. Run ```grunt``` and open ```http://127.0.0.1:9000``` in your browser.
 5. Deployment: you have 2 options:

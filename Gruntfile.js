@@ -59,19 +59,19 @@ module.exports = function(grunt) {
           },
           {
             expand: true,
-            cwd: 'bower_components/bootstrap/dist',
+            cwd: 'node_modules/bootstrap/dist',
             src: 'fonts/*',
             dest: 'build/'
           },
           {
             expand: true,
-            cwd: 'bower_components/font-awesome',
+            cwd: 'node_modules/font-awesome',
             src: 'fonts/*',
             dest: 'build/'
           },
           {
             expand: true,
-            cwd: 'vendor/leaflet/images',
+            cwd: 'node_modules/leaflet/dist/images',
             src: '**/*',
             dest: 'build/images/vendor/leaflet'
           }
@@ -106,9 +106,9 @@ module.exports = function(grunt) {
       vendorcss: {
         files: {
           'build-css/vendor.less': [
-            'vendor/leaflet/leaflet.css',
-            'vendor/leaflet.markercluster/MarkerCluster.css',
-            'vendor/leaflet.markercluster/MarkerCluster.Default.css',
+            'node_modules/leaflet/dist/leaflet.css',
+            'node_modules/leaflet.markercluster/dist/MarkerCluster.css',
+            'node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css',
             'node_modules/couchmap-leaflet/css/couchmap-leaflet.css'
           ]
         }
@@ -133,29 +133,29 @@ module.exports = function(grunt) {
         options: {
           shim: {
             jquery: {
-              path: 'bower_components/jquery/jquery.min.js',
+              path: 'node_modules/jquery/dist/jquery.min.js',
               exports: '$'
             },
             bootstrap: {
-              path: 'bower_components/bootstrap/dist/js/bootstrap.min.js',
+              path: 'node_modules/bootstrap/dist/js/bootstrap.min.js',
               exports: 'bootstrap',
               depends: {
                 'jquery': 'jQuery'
               }
             },
             leaflet: {
-              path: 'vendor/leaflet/leaflet.js',
+              path: 'node_modules/leaflet/dist/leaflet.js',
               exports: 'L'
             },
             'leaflet-markercluster': {
-              path: 'vendor/leaflet.markercluster/leaflet.markercluster.js',
+              path: 'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js',
               exports: 'L',
               depends: {
                 'leaflet': 'L'
               }
             },
             'leaflet-bing': {
-              path: 'vendor/leaflet.bing/Bing.js',
+              path: 'node_modules/leaflet-bing-layer/index.js',
               exports: 'L',
               depends: {
                 'leaflet': 'L'

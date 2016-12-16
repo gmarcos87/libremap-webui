@@ -27,10 +27,14 @@
   "dependencies": {
     "@kahwee/backbone-deep-model": "^2.0.2",
     "backbone": "^1.3.3",
+    "bootstrap": "^3.3.7",
     "couchmap-backbone": "git://github.com/gmarcos87/couchmap-backbone#master",
     "couchmap-common": "git://github.com/gmarcos87/couchmap-common#master",
     "couchmap-leaflet": "git://github.com/gmarcos87/couchmap-leaflet#master",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.1.1",
     "leaflet-bing-layer": "^3.1.0",
+    "leaflet.markercluster": "^1.0.0",
     "libremap-common": "git://github.com/gmarcos87/libremap-common#master",
     "underscore": "^1.8.3"
   },
