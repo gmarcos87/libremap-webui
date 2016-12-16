@@ -1,4 +1,5 @@
 var BootstrapView = require('./bootstrap');
+var jst = require('templates');
 
 /* options (either provided by options in initializer or by extending)
   attribute (optional, default 'val'): the model's attribute
@@ -9,7 +10,7 @@ module.exports = BootstrapView.extend({
     _.extend(this, _.pick(options || {}, 'attribute', 'placeholder'));
     this.render();
   },
-  template: require('templates').number,
+  template: jst('number'),
   attribute: 'val',
   placeholder: '',
   render: function() {

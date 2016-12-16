@@ -1,5 +1,6 @@
 var BootstrapView = require('./bootstrap');
 var _ = require('underscore');
+var jst = require('templates');
 
 module.exports = BootstrapView.extend({
   initialize: function(options) {
@@ -8,7 +9,7 @@ module.exports = BootstrapView.extend({
     this.name = _.uniqueId('radio_');
     this.render();
   },
-  template: require('templates').radio,
+  template: jst('radio'),
   render: function() {
     this.$el.empty();
     _.each(this.choices, function(text, val) {

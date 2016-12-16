@@ -1,20 +1,22 @@
 var Backbone = require('backbone');
 var ControlsView = require('./controls');
 var MapView = require('./map');
+var jst = require('templates');
 
 module.exports = Backbone.View.extend({
   initialize: function (options) {
     this.router = options.router;
     this.configModel = options.configModel;
 
-    var template = require('templates').rootView;
+    var template = jst('rootView');
     this.$el.html(template({title: this.configModel.get('title')}));
     this.$('a.about').on('click', function() {
       this.$('div.about').modal();
       return false;
     }.bind(this) );
-
-    // add MapView
+  },
+  // add MapView
+  initView: function(){
     this.mapView = new MapView({
       el: this.$('.lm-map'),
       router: this.router,
@@ -34,7 +36,7 @@ module.exports = Backbone.View.extend({
     this.controlsView = new ControlsView({
       el: this.$('.lm-sidebar'),
       mapView: this.mapView,
-      configModel: this.configModel
+      configModel: this.configModel,
     });
   },
   removeSubviews: function() {
