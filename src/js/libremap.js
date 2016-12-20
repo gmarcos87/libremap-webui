@@ -1,4 +1,6 @@
 var $ = require('jquery');
+window.$ = window.jQuery = require('jquery');
+
 var configParser = require('./configParser');
 $(document).ready(function() {
   require('./config_vendor');

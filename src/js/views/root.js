@@ -14,6 +14,7 @@ module.exports = Backbone.View.extend({
       this.$('div.about').modal();
       return false;
     }.bind(this) );
+    this.initView();
   },
   // add MapView
   initView: function(){

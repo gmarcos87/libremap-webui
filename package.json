@@ -22,7 +22,8 @@
     "grunt-contrib-less": "^1.4.0",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-couch": "^1.5.1"
+    "grunt-couch": "^1.5.1",
+    "uglifyify": "^3.0.4"
   },
   "dependencies": {
     "@kahwee/backbone-deep-model": "^2.0.2",
