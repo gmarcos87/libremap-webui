@@ -1,9 +1,11 @@
 var FineView = require('couchmap-leaflet/views/fine');
 var FineMarkerView = require('couchmap-leaflet/views/fineMarker');
 var appconfig = require('../../../../../config.json');
+var jst = require('templates');
+
 
 var RouterMarkerView = FineMarkerView.extend({
-  template: require('templates').lmRouterPopup,
+  template: jst('lmRouterPopup'),
   render: function() {
     this.removeMarker();
     this.marker = L.marker([this.model.get('lat'), this.model.get('lon')],{

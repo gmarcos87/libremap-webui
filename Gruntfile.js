@@ -1,5 +1,18 @@
 var webui_static = [ 'index.html', 'images/**'];
 
+var externalModules = [
+  'jquery',
+  'leaflet',
+  'leaflet-bing-layer',
+  'leaflet.markercluster',
+  'backbone',
+  'underscore',
+  'bootstrap',
+  'couchmap-common',
+  'libremap-common'
+];
+
+
 module.exports = function(grunt) {
   // read couch.json if it exists
   var couchconfig = grunt.file.exists('couch.json') ?
@@ -39,13 +52,25 @@ module.exports = function(grunt) {
     },
     // minify js files
     uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-      },
-      build: {
-        src: 'src/<%= pkg.name %>.js',
-        dest: 'build/<%= pkg.name %>.min.js'
-      }
+      libremap: {
+          options: {
+            sourceMap: true,
+            mangle: true,
+            banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+       '<%= grunt.template.today("yyyy-mm-dd") %> */'
+          },
+         files: {
+           'build/js/libremap.min.js': ['build/js/libremap.js']
+         }
+       },
+       vendor: {
+           options: {
+             sourceMap: false,
+           },
+          files: {
+            'build/vendor/vendor.min.js': ['build/vendor/vendor.js']
+          }
+        }
     },
     // copy static files
     copy: {
@@ -114,54 +139,28 @@ module.exports = function(grunt) {
         }
       }
     },
-    jst: {
+
+    'browserify-jst': {
       compile: {
         options: {
-          processName: function (filename) {
-            return filename.replace(/src\/templates\/(.*)\.html/, '$1');
-          }
+            processName: function(filepath) {
+                return filepath.replace(/src\/templates\/(.*)\.html/, '$1');
+            }
         },
-        files: {
-          'build-jst/templates.js': ['src/templates/**/*.html']
-        }
+        src : 'src/templates/**/*.html',
+        dest : 'build-jst/templates.js'
       }
     },
     browserify: {
-      vendor: {
-        src: [],
+      vendors: {
+        src: ['.'],
         dest: 'build/vendor/vendor.js',
         options: {
-          shim: {
-            jquery: {
-              path: 'node_modules/jquery/dist/jquery.min.js',
-              exports: '$'
-            },
-            bootstrap: {
-              path: 'node_modules/bootstrap/dist/js/bootstrap.min.js',
-              exports: 'bootstrap',
-              depends: {
-                'jquery': 'jQuery'
-              }
-            },
-            leaflet: {
-              path: 'node_modules/leaflet/dist/leaflet.js',
-              exports: 'L'
-            },
-            'leaflet-markercluster': {
-              path: 'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js',
-              exports: 'L',
-              depends: {
-                'leaflet': 'L'
-              }
-            },
-            'leaflet-bing': {
-              path: 'node_modules/leaflet-bing-layer/index.js',
-              exports: 'L',
-              depends: {
-                'leaflet': 'L'
-              }
-            }
-          }
+          debug: true,
+          alias: externalModules.map(function(module) {
+            return module + ':';
+          }),
+          external: null
         }
       },
       // browserify libremap.js -> bundle.js
@@ -170,22 +169,11 @@ module.exports = function(grunt) {
         src: [ 'src/js/libremap.js' ],
         options: {
           debug: true,
-          external: [
-            'jquery',
-            'bootstrap',
-            'leaflet',
-            'leaflet-markercluster',
-            'leaflet-bing'
-          ],
-          shim: {
-            templates: {
-              path: 'build-jst/templates.js',
-              exports: 'JST',
-              depends: {
-                'underscore': '_'
-              }
-            }
-          }
+          transform: ['uglifyify'],
+          external: externalModules,
+          alias: {
+            'templates': './build-jst/templates.js'
+          },
         }
       }
     },
@@ -206,7 +194,7 @@ module.exports = function(grunt) {
       },
       webui_jst: {
         files: ['src/templates/**/*.html'],
-        tasks: ['jst', 'browserify:libremap']
+        tasks: ['browserify-jst', 'browserify:libremap']
       },
       webui_js: {
         files: ['src/**/*.js'],
@@ -230,10 +218,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-jst');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-browserify-jst');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-couch');
 
@@ -247,10 +235,10 @@ module.exports = function(grunt) {
       });
     }
     js += '};';
-    grunt.file.write('tmp/plugins.js', js);
+    grunt.file.write('src/js/plugins.js', js);
   });
 
-  grunt.registerTask('build', ['build-plugins', 'jshint', 'copy:build', 'concat', 'less', 'jst', 'browserify']);
+  grunt.registerTask('build', ['build-plugins', 'jshint', 'copy:build', 'concat', 'less', 'browserify-jst', 'browserify', 'uglify']);
   grunt.registerTask('push', ['build', 'copy:build-ddoc', 'couch']);
 
   // Default task(s).

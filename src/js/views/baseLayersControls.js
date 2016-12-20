@@ -1,7 +1,8 @@
 var Backbone = require('backbone');
+var jst = require('templates');
 
 module.exports = Backbone.View.extend({
-  template: require('templates').baseLayersControl,
+  template: jst('baseLayersControl'),
   initialize: function() {
     this.listenTo(this.model, 'change', this.render, this);
     this.render();

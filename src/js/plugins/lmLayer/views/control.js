@@ -3,6 +3,7 @@ var _ = require('underscore');
 var BootstrapView = require('../../../views/bootstrap');
 var RadioView = require('../../../views/radio');
 var CheckboxView = require('../../../views/checkbox');
+var jst = require('templates');
 
 var FilterView = BootstrapView.extend({
   initialize: function() {
@@ -12,7 +13,7 @@ var FilterView = BootstrapView.extend({
       this.render);
     this.render();
   },
-  template: require('templates').lmFilter,
+  template: jst('lmFilter'),
   render: function() {
     var model = this.model;
     this.$el.html(this.template(model.toJSON()));
@@ -78,7 +79,7 @@ module.exports = BootstrapView.extend({
   initialize: function() {
     this.render();
   },
-  template: require('templates').libremapLayerControl,
+  template: jst('libremapLayerControl'),
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));
     this.listenTo(this.model, 'change change:api_url change:fine_max', function(model) {

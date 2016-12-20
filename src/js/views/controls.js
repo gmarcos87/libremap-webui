@@ -2,6 +2,7 @@ var Backbone = require('backbone');
 var _ = require('underscore');
 var L = require('leaflet');
 var package = require('../../../package.json');
+var jst = require('templates');
 
 // pass 'collection' and 'el' to constructor (gets stored automatically)
 module.exports = Backbone.View.extend({
@@ -15,7 +16,7 @@ module.exports = Backbone.View.extend({
 
   },
   render: function () {
-    var template = require('templates').controlView;
+    var template = jst('controlView');
     this.$el.html(template({
       config: this.configModel,
       package: package

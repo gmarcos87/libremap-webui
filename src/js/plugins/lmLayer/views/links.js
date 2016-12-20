@@ -1,6 +1,7 @@
 Backbone = require('backbone');
 _ = require('underscore');
 L = require('leaflet');
+var jst = require('templates');
 
 
 var LinkView = Backbone.View.extend({
@@ -17,7 +18,7 @@ var LinkView = Backbone.View.extend({
   getColor: function(val) {
     return this.colors[this.getColorIndex(val)];
   },
-  template: require('templates').lmLinkPopup,
+  template: jst('lmLinkPopup'),
   render: function() {
     this.removeLine();
     var router1 = this.model.get('routerModel1');

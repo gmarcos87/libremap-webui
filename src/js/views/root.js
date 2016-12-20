@@ -1,26 +1,21 @@
 var Backbone = require('backbone');
 var ControlsView = require('./controls');
 var MapView = require('./map');
+var jst = require('templates');
 
 module.exports = Backbone.View.extend({
   initialize: function (options) {
     this.router = options.router;
     this.configModel = options.configModel;
-    var template = require('templates').rootView;
+
+    var template = jst('rootView');
     this.$el.html(template({title: this.configModel.get('title')}));
     this.$('a.about').on('click', function() {
       this.$('div.about').modal();
       return false;
     }.bind(this) );
-    this.configModel.on('change', function(){
-      this.dataLayersView.render();
-    },this);
-    //initView
-    this.initView();
   },
-  render: function(){
-    console.log('render');
-  },
+  // add MapView
   initView: function(){
     this.mapView = new MapView({
       el: this.$('.lm-map'),

@@ -1,5 +1,6 @@
 var BootstrapView = require('./bootstrap');
 var _ = require('underscore');
+var jst = require('templates');
 
 module.exports = BootstrapView.extend({
   initialize: function(options) {
@@ -8,7 +9,7 @@ module.exports = BootstrapView.extend({
     this.name = _.uniqueId('checkbox_');
     this.render();
   },
-  template: require('templates').checkbox,
+  template: jst('checkbox'),
   render: function() {
     this.$el.html(this.template({
       name: this.name,
