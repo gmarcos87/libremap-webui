@@ -9,7 +9,7 @@ module.exports = {
     this.level = '-';
 
     //Update models -->> Fix this
-    if(this.data.show_routers !== undefined && this.load == false){
+    if(this.data.show_routers !== undefined && this.load === false){
       this.assignR(this.data,configModel.dataLayersColl.models[0]);
       this.load = true;
     }
