@@ -1,7 +1,6 @@
 var Backbone = require('backbone');
 var _ = require('underscore');
 var L = require('leaflet');
-var appconfig = require('../../../config.json');
 var package = require('../../../package.json');
 
 // pass 'collection' and 'el' to constructor (gets stored automatically)
@@ -10,11 +9,15 @@ module.exports = Backbone.View.extend({
     this.configModel = options.configModel;
     this.mapView = options.mapView;
     this.render();
+
+    this.listenTo(this.configModel, 'change', this.render);
+
+
   },
   render: function () {
     var template = require('templates').controlView;
     this.$el.html(template({
-      config: appconfig,
+      config: this.configModel,
       package: package
     }));
     this.baseLayersControls = new (require('./baseLayersControls'))({

@@ -28,7 +28,7 @@ module.exports = Backbone.View.extend({
     });
 
     this.listenTo(this.configModel,
-      'change:show_routers change:show_links',
+      'change',
       this.render);
     this.render();
   },

@@ -7,6 +7,10 @@ var CheckboxView = require('../../../views/checkbox');
 var FilterView = BootstrapView.extend({
   initialize: function() {
     this.render();
+    this.listenTo(this.model,
+      'change',
+      this.render);
+    this.render();
   },
   template: require('templates').lmFilter,
   render: function() {
@@ -42,6 +46,9 @@ var FiltersCollView = Backbone.View.extend({
     this.listenTo(this.collection, 'remove', this.removeModel);
     this.listenTo(this.collection, 'add', this.addModel);
     this.render();
+    this.listenTo(this.model,
+      'change',
+      this.render);
   },
   addModel: function(model) {
     this.subviews[model.cid] = new FilterView({
@@ -74,7 +81,7 @@ module.exports = BootstrapView.extend({
   template: require('templates').libremapLayerControl,
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));
-    this.listenTo(this.model, 'change:api_url change:fine_max', function(model) {
+    this.listenTo(this.model, 'change change:api_url change:fine_max', function(model) {
       $('#api_url').val(model.get('api_url'));
       $('#fine_max').val(model.get('fine_max'));
     });

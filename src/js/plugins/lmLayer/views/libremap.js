@@ -8,7 +8,7 @@ module.exports = Backbone.View.extend({
   initialize: function(options) {
     this.mapView = options.mapView;
     this.mapView.map.attributionControl.addAttribution(this.attribution);
-    this.listenTo(this.model, 'change:api_url change:fine_max', this.render, this);
+    this.listenTo(this.model, 'change change:api_url change:fine_max', this.render, this);
     this.render();
   },
   render: function() {
