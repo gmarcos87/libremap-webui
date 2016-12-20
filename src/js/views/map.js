@@ -29,6 +29,7 @@ module.exports = MapView.extend({
       imperial: false
     }).addTo(this.map);
 
+
     // bind to router bbox event
     this.listenTo(this.router, 'route:bbox', function(bbox) {
       bbox = couchmap_common.bbox(bbox);
@@ -48,9 +49,11 @@ module.exports = MapView.extend({
       }
     }, this);
     this.map.on('moveend', function(e) {
+      var urlBase = Backbone.history.location.hash.split('/lm-options/');
+      this.lmOptions = (urlBase[1])? '/lm-options/'+urlBase[1]: '';
       var bbox = couchmap_common.bbox(this.map.getBounds());
       this.trigger('bbox', bbox);
-      this.router.navigate('bbox/'+bbox.toString());
+      this.router.navigate('bbox/'+bbox.toString()+this.lmOptions);
     }, this);
   }
 });

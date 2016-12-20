@@ -36,6 +36,7 @@
     "leaflet-bing-layer": "^3.1.0",
     "leaflet.markercluster": "^1.0.0",
     "libremap-common": "git://github.com/gmarcos87/libremap-common#master",
+    "query-string": "^4.2.3",
     "underscore": "^1.8.3"
   },
   "_libremap": {
